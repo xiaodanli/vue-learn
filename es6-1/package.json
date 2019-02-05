@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "babel index.js -d lib"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.3.1"
+  }
+}
