@@ -1,3 +1,7 @@
+"use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 // -------------数组---------------
 // let [a,b,c] = [1,2,3];
 // console.log(a,b,c);
@@ -15,7 +19,7 @@
 // let [[a,b],c,d] = [[1,2],3,[4,5]];
 // console.log(a,b,c,d)
 // -------------对象-----------------
-//按照属性名一一对应
+//起别名 name起的别名x age起的别名交y
 // let {name:x,age:y} = {name:'lili',age:18};
 // let {name:x,age:y=10} = {name:'lili'};
 // console.log(x,y);
@@ -43,7 +47,7 @@
 //     console.log(name,address)
 // }
 // fun({name:'lili',age:18})
-// ------ 结构赋值的应用 ------
+// ------ 解构赋值的应用 ------
 //交换赋值
 // let xx = 'x';
 // let yy = 'y';
@@ -59,4 +63,39 @@
 // let {y:year,m:month} = getDate();
 // console.log(year,month);
 //获取对象的属性值
-"use strict";
+// <div class="wrap" style=""> <p>hello</p> </div>
+var obj = {
+  tagName: 'div',
+  props: {
+    class: 'wrap',
+    style: 'width:100px;height:100px;background:red'
+  },
+  children: {
+    tagName: 'p',
+    children: 'hello'
+  }
+};
+
+function createElement(obj) {
+  var tagName = obj.tagName,
+      props = obj.props,
+      children = obj.children;
+  var el = document.createElement(tagName);
+
+  if (props) {
+    for (var key in props) {
+      el.setAttribute(key, props[key]);
+    }
+  }
+
+  if (_typeof(children) === 'object') {
+    var child = createElement(children);
+    el.appendChild(child);
+  } else {
+    el.innerHTML = children;
+  }
+
+  return el;
+}
+
+console.log(createElement(obj));

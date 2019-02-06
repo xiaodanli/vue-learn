@@ -1,4 +1,7 @@
+"use strict";
+
 //字符串去空格 
+
 /*
     trim()      去掉左右的空格
     trimLeft()  去掉左边的空格
@@ -25,26 +28,14 @@
     第一个参数：:填充后的字符串的总长度  第二个参数：填充的内容  
 
 */
-
 //str.startsWith(检测字符串)  str.endsWith(检测字符串)
-
-let url = '';
-
-let imgUrl = '1.jpg';
-
-let isJpg = imgUrl.endsWith('.png');
-
+var url = '';
+var imgUrl = '1.jpg';
+var isJpg = imgUrl.endsWith('.png');
 console.log(isJpg);
+var file = 'file:///E:/%E5%A4%87%E8%AF%BE/es6-tao/new-own/vue-learn/es6-1/src/index.html';
+console.log(file.startsWith('file')); //str.padStart(n,'@') str.padEnd(n,'@')
 
-let file = 'file:///E:/%E5%A4%87%E8%AF%BE/es6-tao/new-own/vue-learn/es6-1/src/index.html';
-
-console.log(file.startsWith('file'));
-
-
-//str.padStart(n,'@') str.padEnd(n,'@')
-let str = 'abc';
-
-console.log(str.padStart(6,'@'));
-
-console.log(str.padEnd(6,'@'));
-
+var str = 'abc';
+console.log(str.padStart(6, '@'));
+console.log(str.padEnd(6, '@'));
