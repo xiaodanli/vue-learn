@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Person{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+
+            sayName(){
+                console.log(this.name);
+            }
+            static add(){  //静态方法也可以继承
+                console.log('add')
+            }
+        }    
+
+        class Student extends Person{
+            constructor(name,age){
+                super(name,age); //代表调用父级的构造函数,但是返回的是Student的实例 Person.prototype.constructor.call(this);
+            }
+            setName(newName){
+                this.name = newName
+            }
+        }
+
+        let student = new Student('li',19);
+
+        console.log(student instanceof Student);  //判断对象是否是特定类的实例
+        console.log(student instanceof Person);   //判断对象是否是特定类的实例
+        console.log(Object.getPrototypeOf(Student) === Person); //一个类是否继承了另外一个类
+        student.sayName();
+        student.setName('lixd');
+        student.sayName();
+    </script>
+</body>
+</html>

@@ -1,24 +1,4 @@
 /**
- * 函数的默认值
- */
-
- function fun(a = 3,b = 4){
-    
-    console.log(a,b)
- }
- fun();
-
- /**
-  * 函数的参数可以有扩展运算符
- */
-
- function dis(a,...u){
-    console.log(a,u);
- }
-
- dis(1,2,3,4);
-
-/**
  * 箭头函数
  * 
  * 在箭头函数里有些东西可以省略
@@ -40,23 +20,74 @@
  * 
  * */  
 
+/**
+ * 函数的默认值
+ */
+
+//  function fun(a = 3,b = 4){
+//     console.log(a,b)
+//  }
+//  fun();
+
 let arr = [1,2,3];
+console.log(arr.map(item => item+10));
 
-arr.forEach(item => console.log(item))
+//特点一：不能用做构造函数
 
-function fun(){
-    document.onclick = function(a){
-        console.log(this);
+//构造函数和其他函数的区别：调用方式的不同
+
+//通过new关键字调用的函数为构造函数。
+
+//特点二：this指向
+
+let count = 0;
+
+let obj = {
+    count:10,
+    add(){
+        let setCount1 = function(){
+            this.count = 20;
+            console.log(this);  //window  调用的对象
+            console.log(this.count);
+        }
+
+        let setCount2 = () => {
+            this.count = 30;
+            console.log(this);  //obj  定义的对象
+            console.log(this.count);
+        }
+        setCount1();
+        setCount2();
     }
-    // document.onclick = () =>{
-    //     console.log(this);
-    // }
 }
 
-fun();
+obj.add();
 
-let sum = (w,q=()=>{return 5}) => {
-    console.log(q+w);
-}
+//特点三：不能使用arguments，函数的参数可以有扩展运算符,代替方法 ...
 
-sum(1)
+let fun = (...params) => params.reduce((pre,next) => pre+next);
+console.log(fun(1,2,3,4,5));
+
+//  function dis(a,...u){
+//     console.log(a,u);
+//  }
+
+//  dis(1,2,3,4);
+
+
+// function fun(){
+//     document.onclick = function(a){
+//         console.log(this);
+//     }
+//     // document.onclick = () =>{
+//     //     console.log(this);
+//     // }
+// }
+
+// fun();
+
+// let sum = (w,q=()=>{return 5}) => {
+//     console.log(q+w);
+// }
+
+// sum(1)

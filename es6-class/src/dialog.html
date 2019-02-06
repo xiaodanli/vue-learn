@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+
+        .dialog{
+            width:200px;
+            height: 100px;
+            position: absolute;
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="dialog">
+        <h1>biaoti</h1>
+        <div class="btns">
+            <button>确定</button>
+            <button>取消</button>
+        </div>
+    </div> -->
+    <script>
+        class Dialog{
+            constructor(params){
+                this.params = params;
+
+                this.init();
+            }
+            init(){
+                this.createDialog();
+                this.addEvent();
+            }
+
+            createDialog(){
+                this.parentNode = document.createElement('div');
+                this.parentNode.classList.add('dialog');
+
+                let {title,btns} = this.params;
+
+                this.parentNode.innerHTML = `
+                    <h1>${title}</h1>
+                    <div class="btns">
+                        ${btns.map((item,index) => `<button class="btn${index}">${item}</button>`).join('')}
+                    </div>
+                `;
+
+                document.body.appendChild(this.parentNode);
+            }
+
+            addEvent(){
+                let btns = Array.from(this.parentNode.querySelector('.btns').children);
+
+                btns.forEach((item,index) => {
+                    item.onclick = this.params[`btn${index}`].bind(this);
+                })
+            }
+        }
+
+        //DragDialog继承Dialog
+        class DragDialog extends Dialog{
+            constructor(params){
+                super(params);
+                this.drag();
+            }
+
+            drag(){
+                this.parentNode.onmousedown = (e) => {
+                    let {x,y} = {x:e.clientX - this.parentNode.offsetLeft,y:e.clientY - this.parentNode.offsetTop};
+                    console.log(x,y)
+                    document.onmousemove = (e) => {
+                        let {left,top} = {left:e.clientX - x,top:e.clientY - y};
+
+                        this.parentNode.style.top = top + 'px';
+                        this.parentNode.style.left = left + 'px';
+                    }
+                }
+
+                this.parentNode.onmouseup = () => {
+                    document.onmousemove = null;
+                }
+            }
+        }
+
+        new Dialog({
+            title:'是否要删除？',
+            btns:['确定','取消'],
+            btn0(){
+                window.location.href="http://www.baidu.com";
+            },
+            btn1(){
+                document.body.removeChild(this.parentNode);
+            }
+        })
+
+        new DragDialog({
+            title:'tuodong是否要删除？',
+            btns:['确定','取消'],
+            btn0(){
+                window.location.href="http://www.baidu.com";
+            },
+            btn1(){
+                document.body.removeChild(this.parentNode);
+            }
+        })
+
+
+    </script>
+</body>
+</html>
