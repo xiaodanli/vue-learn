@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .button{
+            border:none;
+            background: transparent;
+        }
+        .active{
+            border:1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="nav-list"></div>
+        <div class="con"></div>
+    </div>
+    <script>
+        class Tab{
+            constructor(params){
+                this.parentNode = this.getDom(params.parent);
+                this.navNode = this.getDom('.nav-list',this.parentNode);
+                this.conNode = this.getDom('.con',this.parentNode);
+                this.data = params.data;
+                this.init();
+            }
+            init(){
+                Object.keys(this.data).forEach((item,index) => {
+                    let btn = this.createEle('button',{
+                        style:{
+                            width:'40px',
+                            height:'20px',
+                            color:'#fff',
+                            background:'blue'
+                        },
+                        class:'button'
+                    },item);
+
+                    console.log(btn);
+                    this.navNode.appendChild(btn);
+
+                    if(index === 0){
+                        btn.classList.add('active');
+
+                        this.changeCon(item);
+
+                    }
+
+                    btn.onclick = () => {
+                        let btns = Array.from(document.querySelectorAll('.button'));
+
+                        btns.forEach(btnItem => {
+                            btnItem.classList.remove('active');
+                        })
+
+                        btn.classList.add('active');
+                        
+                        this.changeCon(item);
+
+                    }
+                })
+            }
+
+            changeCon(txt){
+                this.conNode.innerHTML = this.data[txt].map((vTxt) => {
+                    return `<p>${vTxt.text}</p>`
+                }).join('')
+            }
+
+            createEle(tagName,props,child){
+                let el = document.createElement(tagName);
+
+                Object.entries(props).forEach(item => {
+                    if(item[0] === 'style'){
+                        el.setAttribute('style',Object.entries(item[1]).map(v => {
+                            return `${v[0]}:${v[1]}`
+                        }).join(';'));
+                    }else{
+                        el.setAttribute(item[0],item[1])
+                    }
+                })
+
+                if(typeof child === 'object'){
+                    let childEl = this.createEle(child);
+                    el.appendChild(childEl);
+                }else{
+                    el.innerHTML = child;
+                }
+                return el
+            }
+            getDom(el,parent=document){
+                return typeof el === 'object' ? el : parent.querySelector(el)
+            }
+
+        }
+        let tab = new Tab({
+            parent:document.querySelector('.wrap'),
+            data:{
+                'btn1':[
+                    {text:'今日头条1'},
+                    {text:'今日头条2'}
+                ],
+                'btn2':[
+                    {text:'今日头条3'},
+                    {text:'今日头条4'}
+                ],
+                'btn3':[
+                    {text:'今日头条5'},
+                    {text:'今日头条6'}
+                ]
+            }
+        })
+    </script>
+</body>
+</html>

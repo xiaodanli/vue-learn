@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+
+        .button{
+            border:none;
+            margin:0 10px;
+        }
+
+        .active{
+            border:3px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="title"></div>
+        <div class="content"></div>
+    </div>
+    <script>
+        class Tab{
+            constructor(obj){
+                this.parentNode = this.getDom(obj.parent);
+                this.titleNode = this.getDom('.title',this.parentNode);
+                this.contentNode = this.getDom('.content',this.parentNode);
+                this.data = obj.data;
+                this.init();
+            }
+
+            getDom(target,parent=document){
+                return typeof target === 'string' ? parent.querySelector(target) : target
+            }
+
+            init(){
+                this.createNav();
+            }
+
+            createNav(){
+                Object.keys(this.data).forEach((item,index) => {
+                    let navBtn = this.createElement('button',{
+                        style:{
+                            width:'40px',
+                            height:'20px',
+                            color:'#fff',
+                            background:'blue'
+                        },
+                        class:'button'
+                    },
+                    item);
+                    
+                    this.titleNode.appendChild(navBtn);
+
+                    if(index === 0){
+                        navBtn.classList.add('active');
+                        this.changeCon(navBtn.innerText);
+                    }
+
+                    navBtn.onclick = () => {
+                        let btns = Array.from(this.titleNode.children);
+
+                        btns.forEach(item => item.classList.remove('active'));
+
+                        navBtn.classList.add('active');
+
+                        this.changeCon(navBtn.innerText);
+                    }
+                })
+            }
+            changeCon(text){
+                this.contentNode.innerHTML = this.data[text].map((val) => {return `<p>${val.text}</p>`}).join('');
+            }
+            createElement(tagName,props,children='hello'){
+                let el = document.createElement(tagName);
+                //Object.entries() 返回值是一个数组，其成员是可遍历的键值对数组
+                Object.entries(props).forEach((item) => {
+                    if(item[0] === 'style'){
+                        console.log(Object.entries(item[1]));
+                        el.setAttribute('style',Object.entries(item[1]).map((v) => {return `${v[0]}:${v[1]}`}).join(';')); 
+                    }else{
+                        el.setAttribute(item[0],item[1])
+                    }
+                })
+
+                if(typeof children === 'object'){
+                    let childEl = this.createElement(children);
+                    el.appendChild(childEl);
+                }else{
+                    el.innerHTML = children;
+                }
+
+                return el;
+                
+            }   
+        }
+
+        let tab = new Tab({
+            parent:document.querySelector('.wrap'),
+            data:{
+                'btn1':[
+                    {text:'今日头条1'},
+                    {text:'今日头条2'}
+                ],
+                'btn2':[
+                    {text:'今日头条3'},
+                    {text:'今日头条4'}
+                ],
+                'btn3':[
+                    {text:'今日头条5'},
+                    {text:'今日头条6'}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>

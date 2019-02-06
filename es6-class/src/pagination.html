@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+
+        ul li{
+            list-style: none;
+            display:inline-block;
+            width:20px;
+            height: 20px;
+            border:1px solid gray;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        ul {
+            display: inline;
+        }
+
+        select{
+            display: inline-block;
+            width:150px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="con"></div>
+        <div class="page-box">
+            <span class="left-btn"><</span>
+            <select class="select"></select>
+            <ul class="page-btn"></ul>
+            <span class="right-btn">></span>
+        </div>
+    </div>
+    <script>
+        let data = [];
+
+        for(let i=0;i<30;i++){
+            data.push({title:`今日头条${i+1}`,id:i})
+        }
+        console.log(data);
+
+        class Pagination{
+            constructor(params){
+                this.parentNode = this.getDom(params.pageBox);
+                this.lBtn = this.getDom('.left-btn',this.parentNode);
+                this.rBtn = this.getDom('.right-btn',this.parentNode);
+                this.select = this.getDom('.select',this.parentNode);
+                this.pageBtn = this.getDom('.page-btn',this.parentNode);
+                this.con = this.getDom('.con');
+                this.data = params.data;
+                this.selectArr = params.selectArr;
+                this.init();
+            }
+            init(){
+                this.limit = this.selectArr[0];
+                this.pagenum = 1;
+                this.renderSelect();
+                this.renderPage();
+                this.addEvent();
+                this.renderCon();
+            }
+
+            addEvent(){
+                this.lBtn.onclick = () => {
+                    if(this.pagenum > 1){
+                        this.pagenum --;
+                        this.renderCon();
+                    }
+                }
+                this.rBtn.onclick = () => {
+                    if(this.pagenum < this.size){
+                        this.pagenum ++;
+                        this.renderCon();
+                    }
+                }
+
+                this.pageBtn.onclick = (e) => {
+                    let target = e.target;
+                    this.pagenum = target.innerText;
+                    this.renderCon();
+                }
+
+                this.select.onchange = () => {
+                    this.limit = this.select.value*1;
+                    this.pagenum = 1;
+
+                    this.renderPage();
+                    this.renderCon();
+                }
+            }
+
+            renderCon(){
+                let start = this.limit*(this.pagenum-1);
+                let end = this.limit*this.pagenum;
+                let curData = this.data.slice(start,end);
+                this.con.innerHTML = '';
+                this.con.innerHTML = curData.map((item) => {
+                    return `<p>${item.title}</p>`
+                }).join('')
+            }
+            
+            renderPage(){
+                let size = this.size =  Math.ceil(this.data.length/this.limit);
+                this.pageBtn.innerHTML = '';
+                for(let i = 0;i<size;i++){
+                    let li = document.createElement('li');
+
+                    li.innerHTML = i+1;
+
+                    this.pageBtn.appendChild(li);
+                }
+            }
+
+            renderSelect(){
+                this.select.innerHTML = this.selectArr.map(item => {
+                    return `<option value=${item}>每页显示${item}条数据</option>`
+                }).join('');
+            }
+            getDom(ele,parent=document){
+                return typeof ele === 'object' ? ele : parent.querySelector(ele)
+            }
+        }
+
+        new Pagination({
+            pageBox:'.page-box',
+            data,
+            selectArr:[2,4,6,8]
+        })
+    </script>
+</body>
+</html>
