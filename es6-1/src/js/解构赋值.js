@@ -21,7 +21,7 @@
 
 // -------------对象-----------------
 
-//按照属性名一一对应
+//起别名 name起的别名x age起的别名交y
 // let {name:x,age:y} = {name:'lili',age:18};
 // let {name:x,age:y=10} = {name:'lili'};
 // console.log(x,y);
@@ -58,7 +58,7 @@
 // }
 // fun({name:'lili',age:18})
 
-// ------ 结构赋值的应用 ------
+// ------ 解构赋值的应用 ------
 
 //交换赋值
 // let xx = 'x';
@@ -82,6 +82,49 @@
 // console.log(year,month);
 
 //获取对象的属性值
+
+// <div class="wrap" style=""> <p>hello</p> </div>
+let obj = {
+    tagName:'div',
+    props:{
+        class:'wrap',
+        style:'width:100px;height:100px;background:red'
+    },
+    children:{
+        tagName:'p',
+        children:'hello'
+    }
+};
+
+function createElement(obj){
+    let {tagName,props,children} = obj;
+
+    let el = document.createElement(tagName);
+
+    if(props){
+        for(let key in props){
+            el.setAttribute(key,props[key])
+        }
+    }
+
+    if(typeof children === 'object'){
+        let child = createElement(children);
+        el.appendChild(child);
+    }else{
+        el.innerHTML = children;
+    }
+    return el;
+}
+
+console.log(createElement(obj));
+
+
+
+
+
+
+
+
 
 
 
