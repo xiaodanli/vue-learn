@@ -73,13 +73,13 @@ console.log(Array.isArray(lis));
 
 //Array.of()
 
-let arr = Array.of(1,2,3,4,NaN);
+// let arr = Array.of(1,2,3,4,NaN);
 
-let arr1 = arr.findIndex(function(val,key){
-    return val > 2
-})
+// let arr1 = arr.findIndex(function(val,key){
+//     return val > 2
+// })
 
-console.log(arr1);
+// console.log(arr1);
 
 //fill 只传一个参数:基本类型和引用类型
 
@@ -96,6 +96,15 @@ console.log(arr1);
 
 // arr.fill('*',1,3);
 
+function arr(length,cont){
+    // return Array(length).fill(cont);
+    console.log(length)
+    return Array.from({length},function(){
+        return cont;
+    })
+ }
+ console.log(arr(10,'aa'));
+
 //扩展运算符 ...
 
 // let arr4 = [...arr];
@@ -106,6 +115,22 @@ console.log(arr1);
 
 // let arr5 = [1,2,3,[4,5,[7,8]]];
 // let arr6 = arr5.flat(2);
+
+// function includeArr(oldArr,objArr){
+//     objArr.forEach((item) => {
+//         oldArr.splice(item.index,0,item.content);
+//     })
+//     console.log(oldArr);
+// }
+
+// includeArr(['a','b','c','d'],[{
+//     content:"item1",
+//     index:3
+// },{
+//     content:"item4",
+//     index:0
+// }])
+//['item4',a','b','c','item1','d']
 
 // console.log(arr6);
 
