@@ -1,13 +1,5 @@
 "use strict";
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
 /**
  * push 在数组的末尾添加元素
  * 
@@ -77,28 +69,21 @@ lis = Array.from(lis);
 console.log(Array.isArray(lis)); //Array.of()
 
 var arr = Array.of(1, 2, 3, 4, NaN);
-var arr1 = arr.find(function (val, key) {
-  console.log(val, key);
-  return val > 1;
+var arr1 = arr.findIndex(function (val, key) {
+  return val > 2;
 });
-console.log(arr.includes(NaN)); //fill 只传一个参数:基本类型和引用类型
-
-var arr3 = new Array(3).fill({
-  name: 'lili'
-}); //[{name:'lili'},{name:'lili'},{name:'lili'}]
-
-arr3[0].name = 'lixd';
-console.log(arr3); //[{name:'lixd'},{name:'lixd'},{name:'lixd'}]
+console.log(arr1); //fill 只传一个参数:基本类型和引用类型
+// let arr3 = new Array(3).fill({name:'lili'}); //[{name:'lili'},{name:'lili'},{name:'lili'}]
+// arr3[0].name = 'lixd';
+// console.log(arr3) //[{name:'lixd'},{name:'lixd'},{name:'lixd'}]
 //注：填充的数据类型为对象，那么被赋值的为同一个内存地址对象
-
-console.log(arr); //fill传三个参数
-
-arr.fill('*', 1, 3); //扩展运算符 ...
-
-var arr4 = _toConsumableArray(arr);
-
-console.log(arr4 == arr); //flat(拉平的层级)  把多维数组拉平
-
-var arr5 = [1, 2, 3, [4, 5, [7, 8]]];
-var arr6 = arr5.flat(2);
-console.log(arr6);
+// console.log(arr);
+//fill传三个参数
+// arr.fill('*',1,3);
+//扩展运算符 ...
+// let arr4 = [...arr];
+// console.log(arr4 == arr);
+//flat(拉平的层级)  把多维数组拉平
+// let arr5 = [1,2,3,[4,5,[7,8]]];
+// let arr6 = arr5.flat(2);
+// console.log(arr6);
