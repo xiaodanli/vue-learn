@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./ajax.js"></script>
+    <script>
+        /**
+         * Generator函数
+         * 
+        */
+        // function* getnum(time){
+        //     let string = yield new Promise((reslove,reject)=>{
+        //         setTimeout(() => {
+        //             reslove('123')
+        //         },time)
+        //     })
+        // } 
+        // let num = getnum(1000);
+        // num.next();
+        // console.log(num.next()); 
+
+        /*async函数是Generator函数的语法糖,返回的是promise*/    
+        
+        // async function getnum(time){
+        //     let string = await new Promise((reslove,reject)=>{
+        //         setTimeout(() => {
+        //             reslove('async')
+        //         },time)
+        //     })
+        //     console.log(string);
+        //     return string.split('').reverse().join('')
+        // }
+
+        // getnum(1000).then((res) => {
+        //     console.log(res);
+        // })
+
+        // let arr = [1,2,3];
+
+        // for(let i of arr){
+        //     console.log(i)
+        // }  
+        
+        // 注：await 必须放在async的函数内，否则会报错
+
+        // async function demo(){
+        //     let random = await Math.random();
+        //     return random    //这里相当于是执行Promise.resolve(random);没有显示的声明时，会执行Promise.reslove()
+        // }
+
+        // demo().then((res) => {
+        //     console.log(res)
+        // })
+
+        // function sleep(time){
+        //     return new Promise((reslove,reject) =>{
+        //         setTimeout(() => {
+        //             reslove('enough sleep~');
+        //         },time)
+        //     })
+        // }
+
+        // function normalFun(){
+        //     console.log('normalFunc');
+        // }
+
+        // async function asyncDemo(){
+        //     await normalFun();
+        //     console.log("~~~~~~~something");
+        //     let result = await sleep(2000);
+        //     console.log(result);
+        // }
+        // asyncDemo()
+
+        //demo1  有三个异步ajax请求，第三个ajax依赖第二个ajax的结果，第二个ajax依赖第一个结果
+
+        // function sleep(time,result){
+        //     return new Promise((reslove) => {
+        //         setTimeout(() => {
+        //             reslove(result)
+        //         },time)
+        //     })
+        // }
+
+        // async function demo1(){
+        //     let result1 = await sleep(1000,'result1');
+        //     let result2 = await sleep(1000,result1+'result2');
+        //     let result3 = await sleep(1000,result2+'result3');    
+        //     return `${result1}--${result2}--${result3}`
+        // }
+        // demo1().then((res) => {
+        //     console.log(res);
+        // })
+
+        //预防异步请求同步请求  demo2和demo3里面的三个请求没有任何关系
+
+        // function sleep(time){
+        //     return new Promise((reslove) => {
+        //         $.ajax({
+        //             url:'/api/list',
+        //             success:function(res){
+        //                 reslove(res);
+        //             }
+        //         })
+        //     })
+        // }
+
+        async function demo2(){
+            await sleep(1000)
+            await sleep(1000)
+            await sleep(1000)
+            console.log("clear loading")
+        }
+
+        // demo2(); //同步执行的 ajax是依次发送的
+
+        async function demo3(){
+            let s1 = sleep(1000);
+            let s2 = sleep(1000);
+            let s3 = sleep(1000);
+            await Promise.all([s1,s2,s3]);
+            console.log('clear loading');
+        }
+        // demo3();  //三个请求同时发送，三个请求完成后，再执行console.log
+
+        //错误的处理
+
+        function sleep(time){
+            return new Promise((reslove,reject) => {
+                $.ajax({
+                    url:'/api/list',
+                    success:function(res){
+                        reject(res);
+                    }
+                })
+            })
+        }
+        
+        async function errorFun(){
+            try{
+                let result = await sleep(1000);
+                console.log(result)
+            }catch(err){
+                console.warn(err)
+            }
+            console.log("======");
+            return await Promise.resolve('hello')
+        }
+
+        //  errorFun()
+
+        // async function errorFun(){
+        //     let result = await sleep(1000);
+        //     return result
+        // }
+
+        errorFun().then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.warn(error);
+        })
+    </script>
+</body>
+</html>

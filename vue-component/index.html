@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //组件分全局组件和局部组件
+
+        //组件是可复用的vue实例，所以它也拥有data，methods，computed，watch
+
+        // 全局注册组件 
+        /*
+            第一个参数是组件名
+            
+                组件名可以有两种方式：
+                
+                    1)全部是小写字母，以短字符分隔，例：button-counter
+
+                    2)驼峰方式命名  例：buttonCounter
+
+                注：使用时，都需要使用第一种方式
+        */ 
+        // Vue.component('buttonCounter',{
+        //     data(){ //需要注意的是一个组件的data选项是一个函数
+        //         return {
+        //             count:1
+        //         }
+        //     },
+        //     template:'<button @click="add(10)">涨一岁{{count}}</button>',
+        //     methods:{
+        //         add(num){
+        //             this.count += num;
+        //         }
+        //     }
+        // })
+
+        //全局注册组件的缺点：在使用webpack进行构建时，没有使用也会出现在你最终的构建结果中。
+
+        //局部注册组件 需要使用components来惊醒组件的注册
+
+        //在components对象里的每个属性名都是组件名
+
+        let buttonCounter = {
+            data(){
+                return {
+                    count:1
+                }
+            },
+            template:'<button @click="add(10)">涨一岁{{count}}</button>',
+            methods:{
+                add(num){
+                    this.count+=num
+                }
+            }
+        }
+        let vm = new Vue({
+            el:'#app',
+            components:{
+                buttonCounter
+            }
+        })
+    </script>
+</body>
+</html>
