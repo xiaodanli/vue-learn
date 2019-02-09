@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- {{arr[0].test}} -->
+        {{info}}
+        {{arr}}
+        <button @click="change">change</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                arr:[1,2,3],
+                info:{
+                    name:'lili'
+                }
+            },
+            methods:{
+                change(){
+                    // this.arr.splice(2,1,'a') //也可以使用数组的方法
+                    Vue.set(this.arr,2,'a')
+
+                    // this.arr.test = true
+                    // this.$set(this.arr[0],'test',true)
+                    
+                    // this.info.age = 18;
+                    // this.$set(this.info,'age',18)
+                    // this.info = Object.assign({},this.info,{age:18})
+                }
+            }
+        })
+
+        /**
+            Vue.set(target,key,value)
+
+            target:Object Array
+
+            key: number string
+
+            value
+
+            使用场景：
+            
+            1)修改数组的某个值，不会响应到页面上
+
+            问题：
+            data:{
+                arr:[1,2,3]
+            }
+
+            change(){
+                this.arr[2] = 'a'
+            }
+
+            解决方法：
+
+            1>使用this.$set(this.arr,2,'a')  Vue.set(this.arr,2,'a')
+
+            2>this.arr.splice(2,1,'a') 
+            
+            2)给对象添加新的属性
+
+            直接给this.info添加一个age的属性
+
+            问题：
+
+            this.info.age = 18;这种添加方法是错误的
+
+            解决办法：
+
+            1>this.info = Object.assgin({},this.info,{age:18})
+
+            2>this.$set(this.info,'age',18);  Vue.set(this.info,'age',18)
+
+        */
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .big-box{
+            width:100px;
+            height:300px;
+            background: green;
+        }
+        .small-box{
+            width:100px;
+            height:100px;
+            background: red;
+        }
+        .yellow{
+            width:100px;
+            height: 100px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <form>
+            用户名：<input type="text" placeholder="请输入用户名" v-model.lazy.trim="obj.username"><br>
+            密码：<input type="text" placeholder="请输入密码" v-model.lazy.number="obj.pwd">
+            {{obj.username}}
+            {{obj.pwd}}
+            <div>
+                选择爱好：
+                <template v-for="item in hobby">
+                    <input type="checkbox" :value="item" v-model="obj.chooseHobby">{{item}}
+                </template>
+                {{obj.chooseHobby}}
+            </div>
+            <div>
+                地址：
+                <select v-model="obj.address">
+                    <option value="0" disabled selected>请选择</option>
+                    <option :value="item" v-for="item in address">{{item}}</option>
+                </select>
+            </div>
+            <div>
+                建议：
+                <textarea v-model="obj.msg"></textarea>
+            </div>
+            <input type="submit" value="提交" v-on:click.prevent="submit">
+            {{obj}}
+        </form>
+
+        <!-- self 只在自身触发，不是从内部元素触发的 -->
+        <div class="big-box" @click="bigFun">
+            <div class="small-box" @click.stop.once="smalFun"></div>
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                checked:false,
+                obj:{
+                    username:'',
+                    pwd:'',
+                    chooseHobby:[],
+                    address:0,
+                    msg:'就肯就肯德基发的就肯德基发的就肯德基发的就肯德基发的就肯德基发的德基发的'
+                },
+                hobby:["篮球","足球","购物"],
+                address:['河北省','北京','山西']
+            },
+            methods:{
+                submit(e){
+                    // e.preventDefault();
+                    console.log(this.obj)
+                },
+                bigFun(){
+                    console.log("bigbox")
+                },
+                smalFun(e){
+                    console.log('smallbox')
+                    // e.stopPropagation();
+                }
+            }
+        })
+    </script>
+</body>
+</html>

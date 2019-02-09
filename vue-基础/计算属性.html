@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>计算属性</h1>
+        <button @click="a++">add to A</button>
+        <button @click="b++">add to B</button>
+
+        <p>A - {{a}}</p>
+        <p>B - {{b}}</p>
+
+        <p>Age + A = {{addToA1}}</p>
+        <P>Age + B = {{addToB1}}</P>
+        {{test()}}
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                a:0,
+                b:0,
+                age:20 
+            },
+            computed:{
+                addToA1(){
+                    console.log('addToA 方法')
+                    return this.a + this.age
+                },
+                addToB1(){
+                    console.log('addToB 方法')
+                    return this.b + this.age
+                }
+            },
+            methods: {
+                addToA(){
+                    console.log('addToA 方法')
+                    return this.a + this.age
+                },
+                addToB(){
+                    console.log('addToB 方法')
+                    return this.b + this.age
+                },
+                test(){
+                    console.log('test')
+                    return this.age
+                }
+            },
+        })
+
+        //computed是属性调用，而methods是函数调用
+        //computed带有缓存功能，而methods不是     
+    </script>
+</body>
+</html>

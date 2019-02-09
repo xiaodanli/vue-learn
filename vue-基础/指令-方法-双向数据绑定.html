@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .gray{
+            background: #eee;
+        }
+        .fz20{
+            font-size:20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <h1>{{title}}</h1>
+        <h1 v-text="title"></h1> -->
+        <!-- <div v-html="title" v-show="isShow"></div> -->
+        <!-- <div v-html="title" v-if="code===1"></div>
+        <div v-else-if="code===0">没有此用户</div>
+        <div v-else>登录失败</div> -->
+        <!-- v-for的优先级高于v-if object array string num -->
+        <!-- 电影名：<input type="text" v-bind:value="obj.name" ref="moviename" v-on:keyup="changeName"><br> -->
+        电影名：<input type="text" v-model:value="obj.name"><br>
+        价格：<input type="text" v-model="obj.price">
+        <button v-on:click="add">上架</button>   
+        <hr>
+        输入的电影:{{obj}}
+        <ul v-if="movieArr.length">
+            <li 
+                v-for="(item,index) in movieArr" 
+                v-if="item.show"
+                v-bind:class="['fz20',{gray:index%2===0}]"
+            >
+                {{index+1}}、{{item.name}} ---- {{item.price}}
+            </li>
+        </ul>
+        <!-- <ul>
+            <li v-for="(value,key,index) in obj">{{index+1}}--{{key}}----{{value}}</li>
+        </ul> -->
+        <!-- <ul>
+            <li v-for="(item,index) in num">{{index}}---{{item}}</li>
+        </ul> -->
+        <!-- <ul>
+            <li v-for="(item,index) in title">{{item}}</li>
+        </ul> -->
+
+        <span>2332123</span>
+
+        <!-- 或者把v-bind去掉 :src -->
+        <img v-bind:src="url" :style="{width:size+'px',height:'100px'}">  
+
+        <!-- 
+            $event == event 
+            ref --- > this.$refs.username 获取该元素
+        -->
+        <!-- 双向数据绑定 -->
+        <!-- <input type="text" v-on:keyup="logname()" v-bind:value="username" ref="username"> -->
+        <!-- <input type="text" v-model="username">
+        {{username}} -->
+        
+    </div>
+    <script src="vue.js"></script> 
+    <script>
+        let vm = new Vue({
+            el:'#app',  //挂载元素，根元素
+            data:{  //data用于数据存储
+                title:'第一个vue的实例',
+                isShow:true,
+                code:7,
+                num:123,
+                size:120,
+                className:'gray',
+                username:'lili',
+                obj:{
+                    name:'熊出没',
+                    price:48,
+                    show:true
+                },
+                movieArr:[
+                    {
+                        name:'飞驰人生',
+                        price:58,
+                        show:true
+                    },
+                    {
+                        name:'流浪地球',
+                        price:60,
+                        show:true
+                    },
+                    {
+                        name:'小猪佩奇',
+                        price:58,
+                        show:true
+                    },
+                    {
+                        name:'疯狂的外星人',
+                        price:58,
+                        show:false
+                    }
+                ],
+                url:'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_86d58ae1.png'
+            },
+            methods: {  //用于存储各种方法
+                add(){
+                    this.movieArr.push(this.obj);
+                },
+                changeName(){
+                    // console.log(e.target.value);
+                    // this.obj.name=e.target.value;
+                    // this.obj.name = this.$refs.moviename.value;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

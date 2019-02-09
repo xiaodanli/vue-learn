@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h1>{{msg}}</h1>
+            <button @click="change">change</button>
+            <button @click="destory">销毁</button>
+        </div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            // el:'#app',
+            data:{
+                msg:'生命周期'
+            },
+            // template:'<h1>{{msg}}</h1>',
+            // render:function(createElement){
+            //     return createElement('h2','render')
+            // },
+            methods:{
+                change(){
+                    this.msg="change"
+                },
+                destory(){
+                    this.$destroy();
+                }
+            },
+            beforeCreate() {
+                console.log("-----vue实例创建之前状态------")
+                console.log("this.$el",this.$el)
+                console.log("this.$data",this.$data);
+                console.log("this.msg",this.msg);
+            },
+            created() {
+                console.log("-------vue实例创建完毕-------")
+                console.log("this.$el",this.$el)
+                console.log("this.$data",this.$data);
+                console.log("this.msg",this.msg);
+            },
+            beforeMount() {
+                console.log("--------el挂载前-------")
+                console.log("this.$el",this.$el)
+                console.log("this.$data",this.$data);
+                console.log("this.msg",this.msg);
+            },
+            mounted() {
+                console.log("--------el挂载结束------")
+                console.log("this.$el",this.$el)
+                console.log("this.$data",this.$data);
+                console.log("this.msg",this.msg);
+            },
+            beforeUpdate() {
+                console.log("-----更新前状态,数据已更改，但是视图没变--------")
+                alert(this.msg)
+                console.log("this.$el",this.$el)
+                console.log("this.$data",this.$data);
+                console.log("this.msg",this.msg);
+            },
+            updated() {
+                console.log("-----更新完成状态--------")
+                console.log("this.$el",this.$el)
+                console.log("this.$data",this.$data);
+                console.log("this.msg",this.msg);
+            },
+            beforeDestroy() {
+                console.log("-----组件销毁前状态--------")
+                console.log("this.$el",this.$el)
+                console.log("this.$data",this.$data);
+                console.log("this.msg",this.msg);
+            },
+            destroyed() {
+                console.log("-----组件销毁成功状态--------")
+                console.log("this.$el",this.$el)
+                console.log("this.$data",this.$data);
+                console.log("this.msg",this.msg);
+            }
+        })
+        vm.$mount('#app')
+    </script>
+</body>
+</html>
