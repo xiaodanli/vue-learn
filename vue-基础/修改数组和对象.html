@@ -12,6 +12,7 @@
         {{info}}
         {{arr}}
         <button @click="change">change</button>
+        {{getA}}
     </div>
     <script src="./vue.js"></script>
     <script>
@@ -21,6 +22,20 @@
                 arr:[1,2,3],
                 info:{
                     name:'lili'
+                },
+                a:1
+            },
+            computed:{
+                getA(){
+                    return this.a
+                },
+                b:{
+                    set(v){
+                        this.a = v - 1;
+                    },
+                    get(v){
+                        return this.a + 1
+                    }
                 }
             },
             methods:{
