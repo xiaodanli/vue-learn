@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .gray{
+            background:gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        {{num+10}} {{num>=60?'及格':'不及格'}}
+        <!-- {{}} 插值 可以放表达式，不可以放语句-->
+        <!-- 
+            1)v-if
+            2)v-show和v-if的区别
+        -->
+
+        <!-- v-if vue v-:指令 -->
+        
+        <!-- v-if -->
+        <div class="tip">
+            <span v-if="num >= 90">优秀</span>
+            <span v-else-if="num >= 60 && num < 90">及格</span>
+            <span v-else>不及格</span>
+        </div>
+
+        <!-- template标签不会被渲染 -->
+        <template v-if="role === 'username'">
+            <label>用户名</label>
+            <input type="text" placeholder="请输入用户名">   
+        </template>
+        <template v-else>
+            <label>邮箱</label>
+            <input type="email" placeholder="请输入邮箱">   
+        </template>
+
+        <!-- 循环v-for  
+            
+            可以循环以下数据类型：array object number string 
+
+            v-for的优先级高于v-if -->
+
+        <!-- 循环数组 -->
+        <input type="text" placeholder="请输入电影名" v-model="obj.name">
+        <input type="text" placeholder="请输入价格" v-model="obj.price">
+        <button @click="add">添加</button>
+        <ul v-if="movies.length">
+            <li 
+                v-if="item.isUp" 
+            
+                v-for="(item,index) in movies"
+
+                :class="{gray:index%2===0}"
+            >
+                {{index+1}}、电影名： {{item.name}}-价格：{{item.price}}
+                <button @click="del(index)">删除</button>
+            </li>
+        </ul>
+
+        <!-- 循环对象 -->
+        <!-- <ul>
+            <li v-for="(item,key,index) in obj">{{index}}---{{key}}---{{item}}</li>
+        </ul> -->
+
+        <!-- 循环数字 -->
+        <!-- <ul>
+            <li v-for="item in num">{{item}}</li>
+        </ul> -->
+
+        <!-- 循环string -->
+        <!-- <ul>
+            <li v-for="(item,index) in str">{{item}}</li>
+        </ul> -->
+
+        <!-- v-bind html上的属性-->
+
+        <a v-bind:href="url">去百度</a>
+        <!-- 缩写 省略v-bind -->
+        <a :href="url">去百度</a>
+        
+        <span v-bind:class="bg">背景色</span>
+        <!-- 缩写 省略v-bind-->
+        <span :class="bg">背景色</span>
+
+        <img :src="imgUrl" alt="" :style="{width:w+'px',height:h+'px'}">
+
+        <!-- style class 有三种数据类型：string object array -->
+
+        <!-- v-model指令用在表单元素的双向绑定 -->
+
+        <!-- <input type="text" placeholder="请输入用户名" v-model="name"> -->
+        {{name}}
+
+        <input type="text" placeholder="请输入用户名" :value="name" ref="username" @input="inputFun($event)">
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                obj:{
+                    name:"飞驰人生",
+                    price:"58.00",
+                    isUp:true    
+                },
+                num:60,
+                str:'vue',
+                movies:[
+                    {
+                        name:"飞驰人生",
+                        price:"58.00",
+                        isUp:true    
+                    },
+                    {
+                        name:"流浪地球",
+                        price:"68.00",
+                        isUp:true    
+                    },
+                    {
+                        name:"小猪佩奇",
+                        price:"58.00",
+                        isUp:false    
+                    }
+                ],
+                url:'http://baidu.com',
+                bg:'gray',
+                role:'username',
+                imgUrl:'https://cn.vuejs.org/images/logo.png',
+                w:100,
+                h:100,
+                name:'lili'
+            },
+            methods: {
+                add(){
+                    this.movies.push(this.obj);
+                },
+                inputFun(e){
+                    // this.name = e.target.value
+                    this.name = this.$refs.username.value;
+                },
+                del(index){
+                    this.movies.splice(index,1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

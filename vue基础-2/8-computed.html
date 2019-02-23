@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        省：<select v-model="curProvice">
+                <option value="请选择" selected disabled>请选择</option>
+                <option :value="item" v-for="(item,index) in provice" :key="index">{{item}}</option>
+            </select>
+        市：<select v-model="curCity">
+                <option value="请选择" selected disabled>请选择</option>
+                <option :value="item" v-for="(item,index) in  city" :key="index">{{item}}</option>
+            </select>
+        区：<select v-model="curArea">
+                <option value="请选择" selected disabled>请选择</option>
+                <option :value="item" v-for="(item,index) in area" :key="index">{{item}}</option>
+            </select>
+            {{area}}
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let cityList = [
+                    {
+                        "name":"河北省",
+                        "city":[
+                            {
+                                "name":"石家庄市",
+                                "area":["长安区","裕华区","桥西区"]
+                            },
+                            {
+                                "name":"石家庄市1",
+                                "area":["长安区1","裕华区1","桥西区1"]
+                            }
+                        ]
+                    },
+                    {
+                        "name":"河南省",
+                        "city":[
+                            {
+                                "name":"郑州市",
+                                "area":["郑州区1","郑州区2","郑州区3"]
+                            },
+                            {
+                                "name":"濮阳市",
+                                "area":["濮阳区1","濮阳区2","濮阳区3"]
+                            }
+                        ]
+                    }
+                ];
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                cityList,
+                curProvice:'请选择',
+                curCity:'请选择',
+                curArea:'请选择'
+            },
+            computed:{
+                provice(){
+                    return this.cityList.map((item) => item.name)
+                },
+                city(){
+                    let cityArr = [];
+                    let curItem = this.cityList.find((item) => item.name === this.curProvice)
+                    if(curItem){
+                        this.curCity = '请选择';
+                        cityArr = curItem.city.map((item) => item.name)
+                    }
+                    return cityArr
+                },
+                area(){
+                    let areaArr = [];
+                    this.curArea = '请选择';  
+                    this.cityList.forEach((item) => {
+                        if(item.name === this.curProvice){
+                            item.city.forEach(cItem => {
+                                if(cItem.name === this.curCity){
+                                    areaArr = cItem.area
+                                }  
+                            })
+                        }
+                    })
+                    return areaArr
+                }
+            }
+        });
+    </script>
+</body>
+</html>

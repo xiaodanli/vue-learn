@@ -20,6 +20,7 @@
             static add(){  //静态方法也可以继承
                 console.log('add')
             }
+            static prop = 1; //谷歌目前还不支持，需要babel转译
         }    
 
         class Student extends Person{
@@ -39,6 +40,7 @@
         student.sayName();
         student.setName('lixd');
         student.sayName();
+        consoel.log(Person.a)
     </script>
 </body>
 </html>

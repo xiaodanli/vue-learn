@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>{count}</p>
+        <button id="addBtn">add</button>
+    </div>
+    <script>
+        let btn = document.querySelector('#addBtn');
+
+        let data = {
+            count:1
+        }
+
+        addBtn.addEventListener('click',() => {
+            data.count++;
+        })
+
+
+        function mvvmFun(params){
+            let el = document.querySelector(params.el);
+            let children = [...el.children];
+            let reg = /{(\w+)}/;
+            
+            children.forEach((item) => {
+                let text = item.innerHTML;
+                if(reg.test(item)){
+                    let prop = item.match(reg)[1]; //count
+                    change(prop,item,text);
+                    render();
+                }
+            })
+
+            function change(prop,item,text){
+                let defaultValue = data.data[prop];
+                Object.defineProperty(obj,prop,{
+                    get(){
+                        return defaultValues
+                    },
+                    set(value){
+                        defaultValues = value;
+                        item.innerHTML = text.replace(reg,value);
+                    }
+                })
+            }
+
+            function render(){
+                el.innerHTML = el.innerHTML.replace(reg,data.data[title]);
+            }
+        }
+
+        mvvmFun({
+            el:'#app',
+            data
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 注：阻止checkbox的默认事件 -->
+    <div id="app">
+        添加：<input type="text" v-model="text" @keydown.enter="add">
+        <h1>待办事项<span>{{todoList.length}}</span></h1>
+        <ul>
+            <li v-for="(item,index) in todoList">
+                <input type="checkbox" v-model="item.done" @click.prevent="todo(index)">
+                {{item.text}}
+            </li>
+        </ul>
+        {{todoList}}
+        <h1>已完成<span>{{doneList.length}}</span></h1>
+        <ul>
+            <li v-for="(item,index) in doneList">
+                <input type="checkbox" v-model="item.done" @click.prevent="done(index)">{{item.text}}
+                <button @click="del(index)">删除</button>
+            </li>
+        </ul>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                text:'',
+                todoList:[],
+                doneList:[]
+            },
+            methods:{
+                todo(index){
+                    let item = this.todoList[index];
+                    item.done = true;
+                    this.todoList.splice(index,1);
+                    this.doneList.push(item);
+                },
+                add(){
+                    this.todoList.push({
+                        text:this.text,
+                        done:false
+                    })
+                    this.text = ''
+                },
+                done(index){
+                    let item = this.doneList[index];
+                    item.done = false;
+                    this.doneList.splice(index,1);
+                    this.todoList.push(item);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

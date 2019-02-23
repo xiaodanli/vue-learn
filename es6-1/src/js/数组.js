@@ -1,3 +1,5 @@
+//还差一个for of
+
 /**
  * push 在数组的末尾添加元素
  * 
@@ -33,9 +35,9 @@
  * 
  * ---------es6新增的方法------------
  * 
- * Array.from()   把类数组转化为真数组
+ * Array.from(类数组)   把类数组转化为真数组  返回的是一个真正的数组
  * 
- * Array.of()     把一组值转换为数组
+ * Array.of()     把一组值转换为数组  弥补了Array(10)的缺点  
  * 
  * find(function(val,key,原数组){return 条件})       参数为回调函数，返回的是符合条件的第一个元素
  * 
@@ -49,13 +51,13 @@
  * 
  * fill(填充的元素)     用填充元素填充数组 
  * 
- * fill(填充的元素,开始下标，结束下标)   
+ * fill(填充的元素,开始下标,结束下标)   
  * 
  * 用填充元素把开始下标到结束下标（不包括结束下标）的元素全部填充掉
  * 
- * ...扩展运算符
+ * copyWithin()
  * 
- * 
+ * ...扩展运算符 
 */
 
 // let arr = [1,2,3];
@@ -65,11 +67,11 @@
 
 //Array.from()
 
-let lis = document.querySelectorAll('li');
+// let lis = document.querySelectorAll('li');
 
-lis = Array.from(lis);
+// lis = Array.from(lis);
 
-console.log(Array.isArray(lis));
+// console.log(Array.isArray(lis));
 
 //Array.of()
 
@@ -96,14 +98,14 @@ console.log(Array.isArray(lis));
 
 // arr.fill('*',1,3);
 
-function arr(length,cont){
-    // return Array(length).fill(cont);
-    console.log(length)
-    return Array.from({length},function(){
-        return cont;
-    })
- }
- console.log(arr(10,'aa'));
+// function arr(length,cont){
+//     // return Array(length).fill(cont);
+//     consolwe.log(length)
+//     return Array.from({length},function(){  //Array.from()还支持类数组对象  
+//         return cont;
+//     })
+//  }
+//  console.log(arr(10,'aa'));
 
 //扩展运算符 ...
 
@@ -130,9 +132,55 @@ function arr(length,cont){
 //     content:"item4",
 //     index:0
 // }])
+
 //['item4',a','b','c','item1','d']
 
 // console.log(arr6);
+
+// let lis = Array.from(document.querySelectorAll('li'),function(item){
+//     console.log(item)
+//     return item.innerHTML
+// });
+
+// console.log(document.querySelectorAll('li'));
+
+// console.log(Array.isArray(lis))
+
+// console.log(lis);
+
+
+// function loadmore(){
+//     console.log(Array.isArray(Array.prototype.slice(arguments)))    
+// }
+
+// let loadmore = (...params) => {
+//     console.log(Array.isArray(params))
+// }
+
+// loadmore(1,2)
+
+// let arr = [1,2,3];
+
+// let test = arr.findIndex((item) => {
+//     return item > 3
+// })
+
+// console.log(test);
+
+let arr = ['a','b','c'];
+
+console.log(arr.entries())
+let entry = arr.values();
+
+
+console.log(entry.next())
+console.log(entry.next())
+console.log(entry.next())
+console.log(entry.next())
+
+
+
+
 
 
 

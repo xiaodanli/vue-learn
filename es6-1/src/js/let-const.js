@@ -15,7 +15,7 @@
 //es6 使用let const（常量）
 
 //let 有块级作用域，var没有
-//let 声明的变量不能变为window的属性
+//let 声明的变量不能成为window的属性
 //let 没有变量提升，var有
 //暂时性死区 
 

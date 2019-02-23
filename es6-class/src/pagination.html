@@ -123,9 +123,7 @@
             }
 
             renderSelect(){
-                this.select.innerHTML = this.selectArr.map(item => {
-                    return `<option value=${item}>每页显示${item}条数据</option>`
-                }).join('');
+                this.select.innerHTML = this.selectArr.map(item => `<option value=${item}>每页显示${item}条数据</option>`).join('');
             }
             getDom(ele,parent=document){
                 return typeof ele === 'object' ? ele : parent.querySelector(ele)

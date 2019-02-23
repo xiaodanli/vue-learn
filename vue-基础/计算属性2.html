@@ -9,6 +9,12 @@
 <body>
     <div id="app">
         {{address}}
+        {{address}}
+        {{address}}
+        {{address}}
+        {{address}}
+        {{address}}
+        {{address}}
     </div>
     <script src="./vue.js"></script>
     <script>
@@ -17,23 +23,56 @@
             data:{
                 name:'lixd',
                 provide:'河北省',
-                city:'石家庄市'
+                city:'石家庄市',
+                address:'河北省 ---- 石家庄'
             },
             computed:{
                 // address(){ //getter
-                //     return this.provide + this.city
+                //      areturn this.provide + this.city
                 // },
-                address:{
-                    get(){
-                        return this.provide + '---' + this.city
-                    },
-                    set(val){
-                        this.provide = val.split(' ')[0];
-                        this.city = val.split(' ')[1];
-                    }
-                }    
+                // address:{
+                //     get(){
+                //         console.log("--------address------");
+                //         return this.provide + '---' + this.city
+                //     },
+                //     set(val){
+                //         this.provide = val.split(' ')[0];
+                //         this.city = val.split(' ')[1];
+                //     }
+                // }    
+            },
+            methods:{
+                addressFun(){
+                    console.log("---addressFun-----")
+                    return this.provide + '---' + this.city
+                }
+            },
+            watch:{
+                provide:function(val){
+                    this.address = `${val}---${this.city}`
+                },
+                city:function(val){
+                    this.address =  `${this.provide} --- ${val}`
+                }
             }
         })
+
+        let obj = {
+            name:'lili'
+        };
+
+        let val = 10;
+
+        Object.defineProperty(obj,'age',{
+            set:function(num){
+                val = num
+            },
+            get:function(){
+                return val
+            }
+        })
+
+        obj.age = 20;
     </script>
 </body>
 </html>

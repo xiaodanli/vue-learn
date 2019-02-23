@@ -13,7 +13,7 @@
          * Generator函数
          * 
         */
-        // function* getnum(time){
+        // function* getString(time){
         //     let string = yield new Promise((reslove,reject)=>{
         //         setTimeout(() => {
         //             reslove('123')
@@ -26,7 +26,7 @@
 
         /*async函数是Generator函数的语法糖,返回的是promise*/    
         
-        // async function getnum(time){
+        // async function getString(time){
         //     let string = await new Promise((reslove,reject)=>{
         //         setTimeout(() => {
         //             reslove('async')
@@ -40,11 +40,6 @@
         //     console.log(res);
         // })
 
-        // let arr = [1,2,3];
-
-        // for(let i of arr){
-        //     console.log(i)
-        // }  
         
         // 注：await 必须放在async的函数内，否则会报错
 
@@ -99,21 +94,21 @@
 
         //预防异步请求同步请求  demo2和demo3里面的三个请求没有任何关系
 
-        // function sleep(time){
-        //     return new Promise((reslove) => {
-        //         $.ajax({
-        //             url:'/api/list',
-        //             success:function(res){
-        //                 reslove(res);
-        //             }
-        //         })
-        //     })
-        // }
+        function getList(){
+            return new Promise((reslove) => {
+                $.ajax({
+                    url:'/api/list',
+                    success:function(res){
+                        reslove(res);
+                    }
+                })
+            })
+        }
 
         async function demo2(){
-            await sleep(1000)
-            await sleep(1000)
-            await sleep(1000)
+            await getList()
+            await getList()
+            await getList()
             console.log("clear loading")
         }
 
@@ -123,7 +118,7 @@
             let s1 = sleep(1000);
             let s2 = sleep(1000);
             let s3 = sleep(1000);
-            await Promise.all([s1,s2,s3]);
+            await Promise.all([s1,s2,s3]);  //说明async-await并不能取代promise
             console.log('clear loading');
         }
         // demo3();  //三个请求同时发送，三个请求完成后，再执行console.log

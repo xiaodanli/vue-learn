@@ -26,6 +26,8 @@
  * Promise.prototype.catch()  捕捉异常
  * 
  * Promise.prototype.finally() 不管promise最后的状态如何，都会执行
+ * 
+ * Promise.prototype.all()   是把多个promise对象包装成一个promise对象
  
  */
 
@@ -67,8 +69,9 @@
  }).then((results) => {
     document.body.append(results);
  },(error) => {
-    console.lwarn(error)
+    console.warn(error)
  })
+
 
  function getNumber(min,max){
      return new Promise((reslove,reject) => {

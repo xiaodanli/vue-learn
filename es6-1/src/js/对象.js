@@ -15,7 +15,6 @@
  * 
  * 把所有的源对象的所有属性都挂载到目标对象上,同名的属性会被覆盖，（后面的会覆盖前面的）
  * 
- 
  */
 
  //属性的简写
@@ -55,16 +54,16 @@
 
 //方法的简写
 
-let funObj = {
-    sum(a,b){
-        console.log(a+b)
-    },
-    minus(a,b){
-        console.log(a-b);
-    }
-};
+// let funObj = {
+//     sum(a,b){
+//         console.log(a+b)
+//     },
+//     minus(a,b){
+//         console.log(a-b);
+//     }
+// };
 
-funObj.sum(1,2);
+// funObj.sum(1,2);
 
 //对象的扩展运算符
 
@@ -72,20 +71,20 @@ funObj.sum(1,2);
 
  //Object.values()  获取对象所有的value，返回值为数组
 
-let obj = {name:'lili',age:18};
-console.log(Object.keys(obj));
-console.log(Object.values(obj));
-console.log(Object.entries(obj));
+// let obj = {name:'lili',age:18};
+// console.log(Object.keys(obj));
+// console.log(Object.values(obj));
+// console.log(Object.entries(obj));
 
-console.log(Object.is(NaN,NaN)) //true
-console.log(Object.is({},{})) //false
-console.log(Object.is(-0,+0)) //false
+// console.log(Object.is(NaN,NaN)) //true
+// console.log(Object.is({},{})) //false
+// console.log(Object.is(-0,+0)) //false
 
-// console.log(obj.__proto__);
-// console.log(Object.create(obj));
-Object.setPrototypeOf(obj,{aa:1});
-console.log(Object.getPrototypeOf(obj));
-console.log(obj);
+// // console.log(obj.__proto__);
+// // console.log(Object.create(obj));
+// Object.setPrototypeOf(obj,{aa:1});
+// console.log(Object.getPrototypeOf(obj));
+// console.log(obj);
 
 
 //-----------------------Object.assgin()-------------------------------
@@ -119,12 +118,12 @@ console.log(obj);
 
 //-----------------------Object.defineProperty()-------------------------------
 
-Object.defineProperty(obj,'age',{
-    value:19,       //值
-    writable:true,  //不可写
-    enumerable:false, //可枚举
-    configurable:false //是否可使用delete删除，true时删除后还可以再次设置，false不可删除但可以设置
-})
+// Object.defineProperty(obj,'age',{
+//     value:19,       //值
+//     writable:true,  //不可写
+//     enumerable:false, //可枚举
+//     configurable:false //是否可使用delete删除，true时删除后还可以再次设置，false不可删除但可以设置
+// })
 
 // console.log(obj.age);
 // obj.age = 20;
@@ -190,7 +189,92 @@ Object.defineProperty(obj,'age',{
 // console.log(Object.entries(obj));
 
 
+let obj1 = {
+    name:'lili',
+    age:18,
+    sex:'女'
+};
 
+let obj2 = {
+    name:'lixd',
+    age:10,
+    address:'河北省',
+    say(){
+        console.log('say');
+    }
+};
+
+//{name:'lixd',age:10,sex:0,address:'河北省'}
+
+// function extend(o,...arr){
+//     arr.forEach(function(item){
+//         for(let i in item){
+//             o[i] = item[i];
+//         }
+//     })
+//     return o
+// }
+
+// console.log(extend({},obj1,obj2))
+// $.extend({},obj1,obj2....);  不想改变原对象
+
+
+// console.log(obj1.toString());
+
+// for(let i in obj1){
+//     console.log(i);
+// }
+
+// Object.defineProperty(obj1,'aa',{
+//     value:'123'
+// })
+// console.log(obj1);
+// for(let i in obj1){
+//     console.log(i);
+// }
+
+// let info = Object.getOwnPropertyDescriptor(obj1,'aa');
+// console.log(info);
+
+/*
+{
+    configurable: true  是否可配置
+    enumerable: true    是否可枚举 
+    value: "lili"       属性的值
+    writable: true      是否可编写
+}
+*/
+// Object.defineProperty(obj1,'name',{
+//     value:'zs',
+//     enumerable:true,
+//     configurable:false,
+//     writable:false
+// })
+
+// delete obj1.name  //configurable:false   属性不可删除
+
+//只遍历可枚举的属性
+
+console.log(Object.keys(obj1))
+
+
+Object.defineProperty(obj1,'name',{
+    get(){
+        return 'lisi'
+    },
+    set(val){
+        alert('刚成年')
+    }
+})
+
+console.log(obj1.name);
+obj1.name = 'zhaowu';
+
+console.log(Object.entries(obj1))
+
+Object.setPrototypeOf(obj1,{});
+
+console.log(obj1.__proto__ === obj1.constructor.prototype)
 
 
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 数组的检测更新：
+        
+        1>问题一：数组直接通过索引修改值，不会响应  this.list[index] = 值；
+
+        2>问题二：直接修改数组的长度  this.list.length = 9;
+
+        两种解决的方法：
+
+            1>使用数组的变异方法
+
+            push,pop,unshift,shift,slice,splice,reverse
+
+            2>是用Vue.set(),vm.$set()(要修改的数组,索引,值)
+
+            注：实例的vm.$set() 其实是全局方法Vue.set()的别名
+    -->
+    <div id="app">
+        {{list}}{{list.length}}{{userinfo.age}}
+        <button @click='change'>改变数值</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                list:[1,2,3,4],
+                userinfo:{
+                    name:'lili'
+                }
+            },
+            methods:{
+                change(){
+                    // this.userinfo.age = 10;
+                    this.$set(this.userinfo,'age',12);
+                    // this.list.length = 0;
+                    // this.list.splice(9);
+                    // vm.list.splice(0);
+                    // this.list.splice(0);
+                    // this.list[0] = 6;
+                    // this.list.splice(0,1,6);
+                    // Vue.set(this.list,0,8);  // 全局方法Vue.set()
+                    // vm.$set(this.list,0,8)  //实例的$set方法其实是Vue.set()的别名
+                }
+            }
+        })
+
+        // console.log(vm.list);
+        
+
+        // console.log(vm.$el);
+        // console.log(vm.$data);
+        // console.log(vm.list);
+
+        // vm.age = 1;
+
+        /**
+            vue不能动态添加根级别的响应式属性，但是，可以使用
+            Vue.set(object,key,value)方法向嵌套对象添加响应式属性。
+        */
+
+        // vm.$set(vm.$data,'age',10);  //错误
+
+        // vm.userinfo.age = 20;  //不能直接改
+
+        // Vue.set(vm.userinfo,'age',18);
+
+        // vm.$set(vm.userinfo,'age',20);
+
+        // vm.userinfo = Object.assign({},vm.userinfo,{
+        //     age:19
+        // })
+
+        // vm.userinfo.name = 'oo';
+
+        // vm.$set(vm.$data.userinfo,'name','pp');
+        
+        // vm.$set(vm.userinfo,'name','ll')
+
+        // Vue.set(vm.userinfo,'name','kk');
+
+        // console.log(vm.$data);
+
+        // console.log(vm.$el);
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id="app">
+        <div class="left">
+            <ul>
+                <li v-for="(item,index) in nav" :key="index" @click="change(item)">{{item}}</li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="pro-list">
+                <dl v-for="(item,index) in proList" :key="index">
+                    <dt>
+                        <img src="./1.jpg" alt="">
+                    </dt>
+                    <dd>
+                        <h5>{{item.title}}</h5>
+                        <span class="price">{{item.price}}</span>
+                        <button @click="add(item)">加入购物车</button>
+                    </dd>
+                </dl>
+                总共：{{buyCar.length}}件，总价钱：{{totalMoney}}
+            </div>
+        </div>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        let list = [
+            {
+                name:'鱼套餐',
+                list:[
+                    {
+                        title:'鱼套餐一',
+                        price:10
+                    },
+                    {
+                        title:'鱼套餐二',
+                        price:20
+                    },
+                    {
+                        title:'鱼套餐三',
+                        price:30
+                    }
+                ]
+            },
+            {
+                name:'羊套餐',
+                list:[
+                    {
+                        title:'羊套餐一',
+                        price:10
+                    },
+                    {
+                        title:'羊套餐二',
+                        price:20
+                    },
+                    {
+                        title:'羊套餐三',
+                        price:30
+                    }
+                ]
+            },
+            {
+                name:'鸡套餐',
+                list:[
+                    {
+                        title:'鸡套餐一',
+                        price:10
+                    },
+                    {
+                        title:'鸡套餐二',
+                        price:20
+                    },
+                    {
+                        title:'鸡套餐三',
+                        price:30
+                    }
+                ]
+            }
+        ]
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                list,
+                curNaV:'',
+                buyCar:[]
+            },
+            computed:{
+                nav(){
+                    return this.list.map(item => item.name)
+                },
+                proList(){
+                    let proArr = [];
+                    if(this.curNaV){
+                        this.list.forEach(item => {
+                            if(item.name === this.curNaV){
+                                proArr = item.list
+                            }
+                        })
+                    }else{
+                        proArr = this.list[0].list
+                    }
+                    
+                    return proArr
+                },
+                totalMoney(){
+                    let totalMoney = 0;
+                    this.buyCar.forEach((item) => {
+                        totalMoney += item.price;
+                    }) 
+                    return totalMoney
+                }
+            },
+            methods:{
+                change(item){
+                    this.curNaV = item;
+                },
+                add(item){
+                    this.buyCar.push(item)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

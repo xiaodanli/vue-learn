@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <a href="/home">home</a>
+        <a href="/list">list</a> -->
+        <router-link to="/home">home</router-link>
+        <router-link to="/list">list</router-link>
+         <router-view></router-view>   
+    </div>
+    <script src="./vue.js"></script>
+    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+    <script>
+        let routes = [
+            {
+                path:'/list',
+                component:{
+                    template:'<ul><li v-for="item in list">{{item}}</li></ul>',
+                    data(){
+                        return {
+                            list:[1,2,3,4]
+                        }
+                    }
+                }
+            },
+            {
+                path:'/home',
+                component:{
+                    template:'<div>home</div>'
+                }
+            }
+        ];
+        let router = new VueRouter({
+            routes,
+            mode:'history'
+        })
+        new Vue({
+            el:'#app',
+            router
+        })
+    </script>
+</body>
+</html>

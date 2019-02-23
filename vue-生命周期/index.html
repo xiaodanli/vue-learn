@@ -34,50 +34,51 @@
                 }
             },
             beforeCreate() {
-                console.log("-----vue实例创建之前状态------")
+                console.log(this)
+                console.log("-----vue初始化之后调用------")
                 console.log("this.$el",this.$el)
                 console.log("this.$data",this.$data);
                 console.log("this.msg",this.msg);
             },
             created() {
-                console.log("-------vue实例创建完毕-------")
+                console.log("-------vue实例创建完毕，数据data和事件配置完成后调用-------")
                 console.log("this.$el",this.$el)
                 console.log("this.$data",this.$data);
                 console.log("this.msg",this.msg);
             },
             beforeMount() {
-                console.log("--------el挂载前-------")
+                console.log("--------dom挂载前调用-------")
                 console.log("this.$el",this.$el)
                 console.log("this.$data",this.$data);
                 console.log("this.msg",this.msg);
             },
             mounted() {
-                console.log("--------el挂载结束------")
+                console.log("--------dom挂载完成后调用------")
                 console.log("this.$el",this.$el)
                 console.log("this.$data",this.$data);
                 console.log("this.msg",this.msg);
             },
             beforeUpdate() {
-                console.log("-----更新前状态,数据已更改，但是视图没变--------")
+                console.log("-----数据已更改，但是视图没变--------")
                 alert(this.msg)
                 console.log("this.$el",this.$el)
                 console.log("this.$data",this.$data);
                 console.log("this.msg",this.msg);
             },
             updated() {
-                console.log("-----更新完成状态--------")
+                console.log("-----视图更新完后调用--------")
                 console.log("this.$el",this.$el)
                 console.log("this.$data",this.$data);
                 console.log("this.msg",this.msg);
             },
             beforeDestroy() {
-                console.log("-----组件销毁前状态--------")
+                console.log("-----组件销毁前调用--------")
                 console.log("this.$el",this.$el)
                 console.log("this.$data",this.$data);
                 console.log("this.msg",this.msg);
             },
             destroyed() {
-                console.log("-----组件销毁成功状态--------")
+                console.log("-----组件销毁完成后调用--------")
                 console.log("this.$el",this.$el)
                 console.log("this.$data",this.$data);
                 console.log("this.msg",this.msg);

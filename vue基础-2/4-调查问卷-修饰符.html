@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .big-box{
+            width:400px;
+            height:400px;
+            background: blue;
+        }   
+        .small-box{
+            width:200px;
+            height:200px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- .trim 去空格  .lazy把input事件转成change事件 .number 只能输入数字-->
+
+    <!-- 事件修饰符 .prevent .stop .self .once  
+    
+         按键修饰符：.enter  .tab .delete .esc .space .up .down .left .right 
+    -->
+    <div id="app">
+        <form class="form">
+            用户名：<input type="text" placeholder="请输入用户名" v-model.trim.lazy="obj.username">
+            <br>
+            年龄：<input type="text" placeholder="请输入年龄" v-model.number="obj.age">
+            <br>
+            用户名:{{obj.username}}
+            <div>
+                爱好：
+                <template v-for="item in hobby">
+                    <input type="checkbox" v-model="obj.hobby" :value="item">{{item}}
+                </template>
+            </div>
+            <div>
+                地址：
+                <select v-model="obj.address">
+                    <option value="" selected="selected" disabled>请选择</option>
+                    <option :value="item" v-for="item in address">{{item}}</option>
+                </select>
+            </div>
+            <div>
+                建议：
+                <textarea cols="30" rows="10" v-model="obj.msg"></textarea>
+            </div>
+            {{obj}}
+            <input type="submit" value="提交" @click.prevent="submit($event)">
+        </form>
+
+        <div class="big-box" @click.self.once="bigFun">
+            <div class="small-box" @click="smallFun"></div>
+        </div>
+
+        <p v-once>{{obj.username}}</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                obj:{
+                    hobby:[],
+                    address:'',
+                    username:'',
+                    msg:'',
+                    age:''
+                },
+                hobby:['篮球','画画','跑步'],
+                address:['河北省','河南省','山西省'],
+            },
+            methods: {
+                submit(e){
+                    // e.preventDefault();
+                    console.log(this.obj);
+                },
+                bigFun(){
+                    console.log("big-box");
+                },
+                smallFun(){
+                    console.log("small-box");
+                }
+            }
+        })
+    </script>
+</body>
+</html>

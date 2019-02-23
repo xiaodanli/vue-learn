@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{address}}
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        // computed配置项是一个对象
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                info:{
+                    name:'lixd',
+                    age:18,
+                    province:'河北省',
+                    city:'石家庄市'
+                }
+            },
+            computed:{
+                //读取
+                // address(){
+                //     return `${this.info.province}---${this.info.city}`
+                // },
+                address:{
+                    set(v){
+                        this.info.province = v.split('-')[0];
+                        this.info.city = v.split('-')[1];     
+                    },
+                    get(){
+                        return `${this.info.province}-${this.info.city}`
+                    }
+                }
+            }
+        })
+
+        let obj = {
+            name:'zs'
+        };
+
+        Object.defineProperty(obj,'name',{
+            set(v){
+                obj.name  = v;
+            },
+            get(){
+                return 'lixd'
+            }
+        })
+
+        console.log(obj.name);
+        obj.name = 'lili';
+
+        console.log(obj.name)
+    </script>
+</body>
+</html>

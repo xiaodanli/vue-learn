@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+        <button @click="change">change</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        // vue实例的生命周期：在创建一个vue实例时，在构造函数内部先后发生了什么事情。
+
+        /**
+         * 第一个阶段：创建阶段
+         * 
+         * 细化为4个的阶段：
+         * 
+         *      第1个：收集配置项，初始化事件             ----   beforeCreate
+         * 
+         *      第2个：配置项已分配到实例，el还没有挂载    ----   created
+         * 
+         *      第3个：生成虚拟Dom，el还没有完成挂载      ----   beforeMount 
+         * 
+         *      第4个：虚拟dom替换el，完成挂载            ----   mounted
+         * 
+         * 
+         * 第二个阶段：更新阶段
+         * 
+         *      
+         * 
+         * 第三个阶段：销毁阶段
+         * 
+         * 
+         * 
+        */
+
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'hello'
+            },
+            methods: {
+                change(){
+                    this.msg = 'world'
+                }
+            },
+            // template:'<h1>{{msg}}</h1>',
+            beforeCreate() {
+                console.log('before');
+                console.log(this.$data);
+                console.log(this.$el);
+            },
+            created(){
+                console.log(this.$data);
+                console.log(this.$el);
+            },
+            beforeMount() {
+                console.log(this.$data);
+                console.log(this.$el);
+            },
+            mounted() {
+                console.log(this.$data);
+                console.log(this.$el);
+            },
+            beforeUpdate() {
+                console.log(this.$el)
+            },
+            updated() {
+                console.log(this.$el)
+            },
+        })
+    </script>
+</body>
+</html>

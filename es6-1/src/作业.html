@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let arr1 = ['item1','item2','item3','item4','item5'];
+
+        let arr2 = [
+            {
+                content:'selection1',index:0
+            },
+            {
+                content:'selection2',index:2
+            }
+        ];
+
+        //['selection1','item1','item2','selection2','item3','item4','item5']
+
+        // [['selection1'],'item1','item2',['selection2'],'item3','item4','item5'];
+
+
+        function fun(arr1,arr2){
+
+            arr2.forEach((item,index) => {
+                arr1[item.index] = [item.content,arr1[item.index]]
+            })
+            console.log(arr1.flat())
+            // arr2.forEach((item,index) => {
+            //     arr1.splice((item.index+index),0,item.content);
+            // })
+        }
+
+        fun(arr1,arr2)
+    </script>
+</body>
+</html>

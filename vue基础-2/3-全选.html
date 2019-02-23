@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <template v-for="(item,index) in list">
+                <input type="checkbox" v-model="item.isChoose" @click="choose(index)">{{item.name}}
+            </template>
+            <br>
+            {{list}}
+            <br>
+            <input type="checkbox" v-model="checkall" @click="chooseAll">全选
+        </div>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                list:[
+                    {
+                        name:'裤子',
+                        isChoose:false
+                    },
+                    {
+                        name:'衬衫',
+                        isChoose:false
+                    },
+                    {
+                        name:'裙子',
+                        isChoose:false
+                    }
+                ],
+                checkall:false
+            },
+            methods:{
+                choose(index){
+                    this.list[index].isChoose = ! this.list[index].isChoose;
+
+                    this.checkall = this.list.every((item) => {
+                        return item.isChoose
+                    })
+                },
+                chooseAll(){
+                    this.list.forEach((item) => {
+                        item.isChoose = !this.checkall;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

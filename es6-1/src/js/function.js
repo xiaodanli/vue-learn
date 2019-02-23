@@ -1,4 +1,13 @@
 /**
+ * 函数的扩展
+ * 
+ * 1）函数的默认值
+ * 
+ * 2）rest参数 ...扩展运算符
+ * 
+ * 3）箭头函数
+ * 
+ * 
  * 箭头函数
  * 
  * 在箭头函数里有些东西可以省略
@@ -21,7 +30,7 @@
  * */  
 
 /**
- * 函数的默认值
+ * 函数的默认值：
  */
 
 //  function fun(a = 3,b = 4){
@@ -29,8 +38,9 @@
 //  }
 //  fun();
 
-let arr = [1,2,3];
-console.log(arr.map(item => item+10));
+
+// let arr = [1,2,3];
+// console.log(arr.map(item => item+10));
 
 //特点一：不能用做构造函数
 
@@ -40,33 +50,39 @@ console.log(arr.map(item => item+10));
 
 //特点二：this指向
 
-let count = 0;
+// let count = 0;
 
-let obj = {
-    count:10,
-    add(){
-        let setCount1 = function(){
-            this.count = 20;
-            console.log(this);  //window  调用的对象
-            console.log(this.count);
-        }
+// let obj = {
+//     count:10,
+//     add(){
+//         let setCount1 = function(){
+//             this.count = 20;
+//             console.log(this);  //window  调用的对象
+//             console.log(this.count);
+//         }
 
-        let setCount2 = () => {
-            this.count = 30;
-            console.log(this);  //obj  定义的对象
-            console.log(this.count);
-        }
-        setCount1();
-        setCount2();
-    }
-}
+//         let setCount2 = () => {
+//             this.count = 30;
+//             console.log(this);  //obj  定义的对象
+//             console.log(this.count);
+//         }
+//         setCount1();
+//         setCount2();
+//     }
+// }
 
-obj.add();
+// obj.add();
 
 //特点三：不能使用arguments，函数的参数可以有扩展运算符,代替方法 ...
 
-let fun = (...params) => params.reduce((pre,next) => pre+next);
-console.log(fun(1,2,3,4,5));
+let fun = () => {
+    console.log("=====");
+}
+
+new fun()
+
+// let fun = (...params) => params.reduce((pre,next) => pre+next);
+// console.log(fun(1,2,3,4,5));
 
 //  function dis(a,...u){
 //     console.log(a,u);
@@ -76,11 +92,12 @@ console.log(fun(1,2,3,4,5));
 
 
 // function fun(){
+
 //     document.onclick = function(a){
-//         console.log(this);
+//         console.log(this);  //#document
 //     }
 //     // document.onclick = () =>{
-//     //     console.log(this);
+//     //     console.log(this);  //window
 //     // }
 // }
 
@@ -91,3 +108,5 @@ console.log(fun(1,2,3,4,5));
 // }
 
 // sum(1)
+
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- vue的指令：在vue中以标签属性出现类似自定义属性 vue指令定义v-xx 可以实现特定功能（绑定数据） -->
+        <span>{{num>60 ? '及格':'不及格'}}</span>
+        <span v-text="num"></span>
+        <span v-html="numStr"></span>
+
+        <!-- v-if  v-else-if  v-else -->
+        <div>
+            <span v-if="num>=90">优秀</span>
+            <span v-else-if="num>=60 && num<90">及格</span>
+            <span v-else>不及格</span>
+        </div>
+
+        <!-- template -->
+
+        <template v-if="role==='username'">
+            <label>用户名</label>
+            <input type="text" placeholder="请输入用户名">
+        </template>
+
+        <template v-else>
+            <label>邮箱</label>
+            <input type="text" placeholder="请输入邮箱">
+        </template>
+
+        <!-- v-for  array  object  string number -->
+
+        <ul>
+            <li v-for="(item,index) in movies">{{index+1}}、{{item.name}}---{{item.price}}</li>
+        </ul>
+
+        
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',   //挂载元素
+            data:{       //用来存储数据的
+                num:70,
+                numStr:'<p>标签</p>',
+                role:'username',
+                movies:[
+                    {
+                        name:'飞驰人生',
+                        price:'58',
+                        isUp:true
+                    },
+                    {
+                        name:'流浪地球',
+                        price:'58',
+                        isUp:true
+                    },
+                    {
+                        name:'小猪佩奇',
+                        price:'58',
+                        isUp:true
+                    }
+                ]
+            }
+        })
+
+        console.log(vm.num);
+    </script>
+</body>
+</html>
